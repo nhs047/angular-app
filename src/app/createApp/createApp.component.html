@@ -1,0 +1,32 @@
+<div class="form-group">
+  <label for="favouriteValues">What is yor fav value</label>
+  <select class="form-control" id="favValues">
+    <option *ngFor="let data of dataFromHome" [value]="data.id">{{data.appName}}</option>
+  </select>
+</div>
+<form  #createAppForm="ngForm" (ngSubmit)="create()">
+  <h2 class="text-center text-primary mt-10">Sign Up</h2>
+  <hr>
+  
+  <div class="form-group">
+    <input type="text" class="form-control" name="appName" required [(ngModel)]="model.appName" placeholder="App Name">
+  </div>
+  
+  <div class="form-group">
+    <input type="text" class="form-control" name="purpose" required [(ngModel)]="model.purpose" placeholder="purpose">
+  </div>
+
+  <div class="form-group">
+    <input type="text" class="form-control" name="type" required [(ngModel)]="model.type" placeholder="type">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" name="platform" required [(ngModel)]="model.platform" placeholder="platform">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" name="framework" required [(ngModel)]="model.framework" placeholder="framework">
+  </div>
+  <div class="form-group text-center">
+    <button class="btn btn-success ml-1 mr-1" type="submit" [disabled]="!createAppForm.valid">Sign up</button>
+    <button class="btn btn-outline-danger ml-1 mr-1" type="button" (click)="cancelled()">Cancel</button>
+  </div>
+</form>
