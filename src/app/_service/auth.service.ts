@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-baseUrl = 'https://umsbckend.azurewebsites.net/api/2';
+baseUrl = 'https://umsbckend.azurewebsites.net/api/';
 constructor(private http: HttpClient) { }
 login(model: any) {
   return this.http.post(`${this.baseUrl}user/signin`, model).pipe(

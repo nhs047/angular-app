@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../_service/auth.service';
+import { AlertifyService } from '../_service/alertify.service';
 
 @Component({
   selector: 'app-create-app',
@@ -11,7 +12,7 @@ export class CreateAppComponent implements OnInit {
   @Output() cancelAppCreation = new EventEmitter();
   @Output() refreshRequst = new EventEmitter();
   model: any = {};
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private alertify: AlertifyService) { }
   ngOnInit() {
   }
   create() {
@@ -19,12 +20,14 @@ export class CreateAppComponent implements OnInit {
       if (response.isExecuted) {
         this.cancelAppCreation.emit(false);
         this.refreshRequst.emit();
+        this.alertify.succcess('Application added successful');
       }
     }, err => {
-      console.log(err);
+      this.alertify.error(err);
     });
   }
   cancelled() {
     this.cancelAppCreation.emit(false);
+    this.alertify.warning('Cancelled');
   }
 }

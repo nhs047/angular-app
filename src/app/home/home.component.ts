@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AlertifyService } from '../_service/alertify.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
   createAppMode = false;
   values: any;
   data: any;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.getValues();
@@ -20,13 +21,13 @@ export class HomeComponent implements OnInit {
   }
 
   getValues() {
-    this.http.get('https://umsbckend.azurewebsites.net/api/app-setup/2', {
+    this.http.get('https://umsbckend.azurewebsites.net/api/app-setup/', {
       headers: ( { Authorization: '123456', 'Content-Type': 'application/json' })
    }).subscribe(response => {
      this.values = response;
      this.data = this.values.data;
    }, error => {
-     console.log(error);
+     this.alertify.error('Can\'t load data from app-setup \n' + error);
    });
   }
   refreshRequest() {
